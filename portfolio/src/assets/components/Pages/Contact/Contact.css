@@ -1,0 +1,23 @@
+.contact-form .output{
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.contact-form .output li{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    position: relative;
+    padding: 0 25px 10px;
+    border-bottom: 1px solid #888;
+    
+}
+.contact-form .output li span{
+    text-transform: capitalize;
+    display: inline-block;;
+}
+.contact-form .output li:hover{
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
