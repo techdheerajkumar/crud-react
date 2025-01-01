@@ -2,28 +2,33 @@ import React, { useEffect, useState } from "react";
 import "./Contact.css";
 const Contact = () => {
   const [title, setTitle] = useState("Crud");
-  const [singleData, getSingleData] = useState({ userName: "" });
+  const [singleData, getSingleData] = useState({ firstName: "", lastName: "", id: "" });
   let [dataContainer, setDataContainer] = useState([]);
   let [counter, setCounter] = useState(1);
-  const changeHandler = (e) => {
-    getSingleData({
-      userName: e.target.value,
-      id: "",
-    });
-  };
 
+  const changeHandler = (e) => {
+    const {name, value} = e.target;
+    getSingleData((prev)=>({
+        ...prev,
+        [name]: value
+    }));
+  };
+ 
   const clickHandler = (e) => {
     e.preventDefault();
-    if (singleData.userName != "") {
+    if (singleData.firstName != "" && singleData.lastName != "") {
       setCounter(counter + 1);
-      let val = singleData.userName;
+      let valFirst = singleData.firstName;
+      let valLast = singleData.lastName; 
+
       setDataContainer((prev) => {
-        return [...prev, { userName: val, id: counter }];
+        return [...prev, { firstName: valFirst,lastName: valLast, id: counter }];
       });
-      getSingleData({ userName: "", id: counter });
+      
+      getSingleData({ firstName: "", lastName: "", id: counter });
     }
   };
-
+  
   const removeItem = (key) => {
     setDataContainer((prev) => {
       const updatedData = prev.filter((item) => item.id !== key);
@@ -43,9 +48,18 @@ const Contact = () => {
             <input
               onChange={changeHandler}
               type="text"
-              placeholder="Enter your name"
+              placeholder="First name"
               className="mb-3 w-100"
-              value={singleData.userName}
+              name="firstName"
+              value={singleData.firstName}
+            />
+            <input
+              onChange={changeHandler}
+              type="text"
+              placeholder="Last name"
+              className="mb-3 w-100"
+              name="lastName"
+              value={singleData.lastName}
             />
             <input type="submit" className="w-25 mx-auto" value="Add" />
           </form>
@@ -58,7 +72,7 @@ const Contact = () => {
                     data-key={item.id}
                     className="d-flex justify-content-between mb-0 align-items-center p-3"
                   >
-                    <span>{item.userName}</span>
+                    <span>{item.firstName} {item.lastName}</span>
                     <div className="cta-wrapper">
                       <button id="edit" className="edit btn btn-info">
                         Edit
