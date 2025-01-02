@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Contact.css";
+import "./Crud.css";
 const Contact = () => {
   const [title, setTitle] = useState("CRUD");
   const [singleData, getSingleData] = useState({
@@ -15,7 +15,7 @@ const Contact = () => {
   let [dataContainer, setDataContainer] = useState([]);
   let [counter, setCounter] = useState(1);
   const [editingId, setEditingId] = useState(null);
-  
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     getSingleData((prev) => ({
@@ -23,7 +23,7 @@ const Contact = () => {
       [name]: value,
     }));
   };
-//  Crud - CREATE
+  //  Crud - CREATE
   const clickHandler = (e) => {
     e.preventDefault();
     if (singleData.firstName != "" && singleData.lastName != "") {
@@ -42,7 +42,7 @@ const Contact = () => {
     }
   };
 
-//   Crud - DELETE
+  //   Crud - DELETE
   const removeItem = (key) => {
     setDataContainer((prev) => {
       const updatedData = prev.filter((item) => item.id !== key);
@@ -50,7 +50,7 @@ const Contact = () => {
     });
   };
 
-//   Crud - UPDATE
+  //   Crud - UPDATE
   const editHandler = (id) => {
     setEditingId(id);
   };
@@ -64,16 +64,20 @@ const Contact = () => {
   const updateHandler = (e, id) => {
     e.preventDefault();
     if (editValue.firstName != "" && editValue.lastName != "") {
-        setDataContainer((prev)=>{
-            return prev.filter((item) => item.id !== editingId)
-        })
-        setDataContainer((prev) => [
-          ...prev,
-          { firstName: editValue.firstName, lastName: editValue.lastName, id: editingId },
-        ]);
+      setDataContainer((prev) => {
+        return prev.filter((item) => item.id !== editingId);
+      });
 
-        setEditingId(null)
-    }    
+      setDataContainer((prev) => [
+        ...prev,
+        {
+          firstName: editValue.firstName,
+          lastName: editValue.lastName,
+          id: editingId,
+        },
+      ]);
+      setEditingId(null);
+    }
   };
 
   return (
